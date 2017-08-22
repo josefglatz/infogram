@@ -13,9 +13,13 @@
 
 ## Installation
 
-### Installation using Composer (actually the only way to install this extension)
+### Installation using Composer
 
 The recommended way to install the extension is by using [Composer](https://getcomposer.org/). In your Composer based TYPO3 project root, just do `composer require josefglatz/infogram`
+
+### Installation as extension from TYPO3 Extension Repository (TER)
+
+Download and install the extension with the TYPO3 CMS extension manager module or directly via [typo3.org](https://typo3.org/extensions/repository/view/infogram).
 
 ## Manual
 
@@ -39,7 +43,7 @@ Please take a look at the full manual inside the Documentation directory or rend
 - [ ] PageLayoutViewHook: Plugin summary (incl. refactoring)
 - [ ] Finalize Exception Handling
 - [x] ExtensionConfiguration class
-- [ ] Github tags
+- [x] Github tags
 - [ ] Github first public release
 - [ ] Packagist registration
 - [ ] Fluid Template ShowAction
