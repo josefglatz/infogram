@@ -1,0 +1,14 @@
+<html data-namespace-typo3-fluid="true"
+	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:infogram="http://typo3.org/ns/JosefGlatz/Infogram/ViewHelpers">
+
+<f:layout name="General" />
+
+<f:section name="Content">
+	{_all -> f:debug(inline:1)}
+
+	<f:format.raw>{infographic.embed_responsive}</f:format.raw>
+
+</f:section>
+
+</html>

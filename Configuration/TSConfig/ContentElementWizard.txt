@@ -1,0 +1,14 @@
+mod.wizards.newContentElement.wizardItems.plugins {
+	elements {
+		infogram {
+			iconIdentifier = ext-infogram-wizard-icon
+			title = LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:plugin.title
+			description = LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:plugin.description
+			tt_content_defValues {
+				CType = list
+				list_type = infogram_show
+			}
+		}
+	}
+	show :=addToList(infogram)
+}

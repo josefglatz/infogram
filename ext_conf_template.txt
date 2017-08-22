@@ -1,0 +1,15 @@
+
+# cat=general/enable/1; type=string; label=LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:extMgm.apiKey
+apiKey =
+
+# cat=general/enable/1; type=string; label=LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:extMgm.apiSecret
+apiSecret =
+
+# cat=general/enable/1; type=string; label=LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:extMgm.username
+username =
+
+# cat=Proxy/enable/20; type=string; label=LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:extMgm.proxy
+proxy =
+
+# cat=Proxy/enable/21; type=string; label=LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:extMgm.proxyPort
+proxyPort =

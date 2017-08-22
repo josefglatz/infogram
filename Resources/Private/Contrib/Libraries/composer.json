@@ -1,0 +1,12 @@
+{
+	"name": "josefglatz/infogram",
+	"description": "Required Tools",
+	"require": {
+		"infogram/infogram": "^1.0",
+		"roave/security-advisories": "dev-master"
+	},
+	"config": {
+		"vendor-dir": ".",
+		"bin-dir": "bin"
+	}
+}

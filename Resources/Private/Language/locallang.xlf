@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" product-name="infogram">
+		<header/>
+		<body>
+			<trans-unit id="extMgm.apiKey">
+				<source>infogra.m API key: You get the API key at infogram.com > Account settings > API</source>
+			</trans-unit>
+			<trans-unit id="extMgm.apiSecret">
+				<source>infogra.m API secret: You get the API secret at infogram.com > Account settings > API</source>
+			</trans-unit>
+			<trans-unit id="extMgm.username">
+				<source>infogra.m username: You get the username at infogram.com > Account settings > Profile</source>
+			</trans-unit>
+			<trans-unit id="extMgm.proxy">
+				<source>If you have to use a proxy for curl enter it here: (Not implemented!)</source>
+			</trans-unit>
+			<trans-unit id="extMgm.proxyPort">
+				<source>Enter the proxy port: just necessary, if you set  teh proxy url (Not implemented!)</source>
+			</trans-unit>
+
+			<trans-unit id="plugin.title">
+				<source>Infogram</source>
+			</trans-unit>
+			<trans-unit id="plugin.description">
+				<source>Display an infogr.am infographic</source>
+			</trans-unit>
+			<trans-unit id="plugin.alternativeTitle">
+				<source>Infogram: embed an infogr.am infographic</source>
+			</trans-unit>
+
+			<trans-unit id="flexform.title">
+				<source>Infogram</source>
+			</trans-unit>
+			<trans-unit id="flexform.list">
+				<source>Select Infographic to display</source>
+			</trans-unit>
+			<trans-unit id="flexform.list.empty">
+				<source>Please select an already generated infographic</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

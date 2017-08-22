@@ -1,0 +1,35 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:flexform.title</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <!-- Show -->
+                    <settings.infographicId>
+                        <TCEforms>
+                            <label>LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:flexform.list</label>
+                            <config>
+                                <type>select</type>
+                                <itemsProcFunc>JosefGlatz\Infogram\Hooks\Backend\ItemsProcFunc->getList</itemsProcFunc>
+                                <renderType>selectSingle</renderType>
+                                <eval>required</eval>
+                                <items>
+                                    <numIndex index="1">
+                                        <numIndex index="0">LLL:EXT:infogram/Resources/Private/Language/locallang.xlf:flexform.list.empty</numIndex>
+                                        <numIndex index="1"></numIndex>
+                                    </numIndex>
+                                </items>
+                            </config>
+                        </TCEforms>
+                    </settings.infographicId>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

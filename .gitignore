@@ -1,0 +1,9 @@
+.idea/
+.build/*
+composer.lock
+
+/Resources/Private/Libraries/**/*
+!/Resources/Private/Libraries/composer.json
+!/Resources/Private/Libraries/composer.lock
+!/Resources/Private/Libraries/autoload.php
+/Export/*
