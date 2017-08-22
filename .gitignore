@@ -2,8 +2,8 @@
 .build/*
 composer.lock
 
-/Resources/Private/Libraries/**/*
-!/Resources/Private/Libraries/composer.json
-!/Resources/Private/Libraries/composer.lock
-!/Resources/Private/Libraries/autoload.php
+/Resources/Private/Contrib/Libraries/**/*
+!/Resources/Private/Contrib/Libraries/composer.json
+!/Resources/Private/Contrib/Libraries/composer.lock
+!/Resources/Private/Contrib/Libraries/autoload.php
 /Export/*
