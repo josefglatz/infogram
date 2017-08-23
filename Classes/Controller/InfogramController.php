@@ -54,7 +54,7 @@ class InfogramController extends ActionController
         if (!empty($this->settings['infographicId'])) {
             $this->view->assign(
                 'infographic',
-                $this->infogramApi->getInfographic($this->settings['infographicId'])
+                get_object_vars($this->infogramApi->getInfographic($this->settings['infographicId']))
             );
         }
     }
