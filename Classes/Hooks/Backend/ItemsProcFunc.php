@@ -5,8 +5,6 @@ namespace JosefGlatz\Infogram\Hooks\Backend;
 use JosefGlatz\Infogram\Service\ApiService;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\FlexFormService;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
 class ItemsProcFunc
 {
@@ -32,14 +30,19 @@ class ItemsProcFunc
                 $title = $infographic->title;
                 $published = '';
                 if (!$infographic->published) {
-                    $published = ' [ Not Published ]';
+                    $published = ' (‼ NOT PUBLISHED)';
                 }
-                $lastEdit = ' [' . BackendUtility::datetime(date('U', strtotime($infographic->date_modified))) . ']';
-                $title = sprintf('%s%s%s', $title, $published, $lastEdit);
+                $lastEdit = ' [' . $this->lastModified($infographic->date_modified) . ']';
+                $title = sprintf('📊 %s%s%s', $title, $published, $lastEdit);
                 $config['items'][] = [$title, $id];
             }
         } catch (\Exception $e) {
             // do nothing
         }
+    }
+
+    protected function lastModified(string $time): string
+    {
+        return BackendUtility::datetime(date('U', strtotime($time)));
     }
 }
