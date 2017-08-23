@@ -8,6 +8,7 @@ use Infogram\RequestSigningSession;
 use JosefGlatz\Infogram\Domain\Model\Dto\ExtensionConfiguration;
 use JosefGlatz\Infogram\Exception\ApiNoResponseException;
 use JosefGlatz\Infogram\Exception\ApiNotOkException;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -38,11 +39,17 @@ class ApiService
 
     /**
      * ApiService constructor.
+     * @throws \BadFunctionCallException
+     * @throws \JosefGlatz\Infogram\Exception\ApiKeyMissingException
+     * @throws \JosefGlatz\Infogram\Exception\ApiSecretMissingException
+     * @throws \JosefGlatz\Infogram\Exception\UsernameMissingException
+     * @throws \InvalidArgumentException
      */
     public function __construct()
     {
         if (TYPO3_COMPOSER_MODE !== true) {
-            require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('infogram') .
+            /** @noinspection PhpIncludeInspection */
+            require_once ExtensionManagementUtility::extPath('infogram') .
                 'Resources/Private/Contrib/Libraries/autoload.php';
         }
         $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
@@ -133,7 +140,7 @@ class ApiService
      *
      * @throws ApiNotOkException
      */
-    protected function checkForValidRequest(InfogramResponse $response, string $message = 'API couldn\'t execute request')
+    protected function checkForValidRequest(InfogramResponse $response, string $message = 'API could not execute request')
     {
         if (!$response->isOK()) {
             throw new ApiNotOkException($message . ': ' . $response->getBody());

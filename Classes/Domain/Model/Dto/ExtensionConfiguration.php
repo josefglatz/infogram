@@ -27,6 +27,7 @@ class ExtensionConfiguration
 
     public function __construct()
     {
+        /** @noinspection UnserializeExploitsInspection */
         $settings = (array)unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['infogram']);
         foreach ($settings as $key => $value) {
             if (property_exists(__CLASS__, $key)) {
@@ -76,7 +77,7 @@ class ExtensionConfiguration
     /**
      * @return string
      */
-    public function getProxy()
+    public function getProxy(): string
     {
         return $this->proxy;
     }
@@ -85,11 +86,11 @@ class ExtensionConfiguration
      * @return string
      * @throws \JosefGlatz\Infogram\Exception\ProxyPortWrongTypeException
      */
-    public function getProxyPort()
+    public function getProxyPort(): string
     {
         if (!empty($this->proxyPort) && !is_int($this->getProxyPort())) {
             throw new ProxyPortWrongTypeException('infogr.am proxyPort must be an integer value');
         }
-        return $this->proxyPort;
+        return (string)$this->proxyPort;
     }
 }

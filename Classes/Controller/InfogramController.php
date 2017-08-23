@@ -26,7 +26,8 @@ class InfogramController extends ActionController
     protected $extensionConfiguration;
 
     /**
-     * Tasks which all actions have in common: instanciate ApiService and extConf
+     * Tasks which all actions have in common: instantiate ApiService and extConf
+     * @throws \InvalidArgumentException
      */
     public function initializeAction()
     {
@@ -48,6 +49,8 @@ class InfogramController extends ActionController
 
     /**
      * Single view of an infographic
+     * @throws \JosefGlatz\Infogram\Exception\ApiNoResponseException
+     * @throws \JosefGlatz\Infogram\Exception\ApiNotOkException
      */
     public function showAction()
     {

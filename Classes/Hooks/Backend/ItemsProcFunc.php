@@ -6,6 +6,12 @@ use JosefGlatz\Infogram\Service\ApiService;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * Custom flexform fields support
+ *
+ * Class ItemsProcFunc
+ * @package JosefGlatz\Infogram\Hooks\Backend
+ */
 class ItemsProcFunc
 {
     /** @var ApiService */
@@ -34,6 +40,7 @@ class ItemsProcFunc
                 }
                 $lastEdit = ' [' . $this->lastModified($infographic->date_modified) . ']';
                 $title = sprintf('📊 %s%s%s', $title, $published, $lastEdit);
+                // Push infographic as select item
                 $config['items'][] = [$title, $id];
             }
         } catch (\Exception $e) {

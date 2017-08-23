@@ -17,6 +17,7 @@ class FooterDataViewHelper extends AbstractViewHelper
 
     /**
      * Constructor
+     * @throws \InvalidArgumentException
      */
     public function __construct()
     {

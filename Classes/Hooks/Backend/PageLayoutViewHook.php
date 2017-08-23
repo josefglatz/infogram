@@ -6,6 +6,7 @@ use JosefGlatz\Infogram\Service\ApiService;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Lang\LanguageService;
 
 class PageLayoutViewHook
 {
@@ -48,7 +49,7 @@ class PageLayoutViewHook
         $this->api = GeneralUtility::makeInstance(ApiService::class);
     }
 
-    public function getExtensionSummary(array $params = [])
+    public function getExtensionSummary(array $params = []): string
     {
         $this->flexformData = GeneralUtility::xml2array($params['row']['pi_flexform']);
 
@@ -66,9 +67,11 @@ class PageLayoutViewHook
 
     /**
      * @param string $string
+     * @param bool $hsc
+     *
      * @return string
      */
-    protected function getLabel($string, $hsc = true)
+    protected function getLabel($string, $hsc = true): string
     {
         $label = $this->getLanguageService()->sL(self::LLPATH . $string);
         if ($hsc) {
@@ -80,9 +83,9 @@ class PageLayoutViewHook
     /**
      * Return language service instance
      *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @return LanguageService
      */
-    public function getLanguageService()
+    public function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
     }
@@ -93,7 +96,7 @@ class PageLayoutViewHook
      *
      * @return string
      */
-    protected function renderSettingsAsTable()
+    protected function renderSettingsAsTable(): string
     {
         if (count($this->tableData) === 0) {
             return '';
