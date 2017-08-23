@@ -16,11 +16,6 @@ call_user_func(
             ]
         );
 
-        if (TYPO3_COMPOSER_MODE !== true) {
-            require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extKey) .
-            'Resources/Private/Contrib/Libraries/autoload.php';
-        }
-
         // Only backend relevant stuff
         if (TYPO3_MODE === 'BE') {
             // Register icons provided by this extension

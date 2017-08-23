@@ -41,6 +41,10 @@ class ApiService
      */
     public function __construct()
     {
+        if (TYPO3_COMPOSER_MODE !== true) {
+            require_once \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('infogram') .
+                'Resources/Private/Contrib/Libraries/autoload.php';
+        }
         $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
         $this->apiKey = $extensionConfiguration->getApiKey();
         $this->apiSecret = $extensionConfiguration->getApiSecret();
