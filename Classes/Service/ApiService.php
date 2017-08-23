@@ -3,14 +3,19 @@
 namespace JosefGlatz\Infogram\Service;
 
 use Infogram\InfogramRequest;
+use Infogram\InfogramResponse;
 use Infogram\RequestSigningSession;
 use JosefGlatz\Infogram\Domain\Model\Dto\ExtensionConfiguration;
 use JosefGlatz\Infogram\Exception\ApiNoResponseException;
 use JosefGlatz\Infogram\Exception\ApiNotOkException;
-use TYPO3\CMS\Core\Log\Logger;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 
+/**
+ * Infogram API Service
+ *
+ * Class ApiService
+ * @package JosefGlatz\Infogram\Service
+ */
 class ApiService
 {
     /**
@@ -33,8 +38,6 @@ class ApiService
 
     /**
      * ApiService constructor.
-     *
-     * @TODO Proxy settings usage: find way to support a proxy. infogram/infogram doesn't support a proxy actually.
      */
     public function __construct()
     {
@@ -46,35 +49,43 @@ class ApiService
     }
 
     /**
-     *  Return all available
+     * Retrieve available infographics
+     *
+     * @throws \JosefGlatz\Infogram\Exception\ApiNoResponseException
+     * @throws \JosefGlatz\Infogram\Exception\ApiNotOkException
      */
-    public function getInfographics()
+    public function getInfographics(): InfogramResponse
     {
         $request = new InfogramRequest(
             $this->apiSession,
             'GET',
-            'users/' . $this->apiUsername  . '/infographics',
-            null,
-            null);
+            'users/' . $this->apiUsername . '/infographics');
         $response = $request->execute();
 
-        if (! $response) {
-            throw new ApiNoResponseException("Cannot connect to the infogram server");
-        }
-
-        if (!$response->isOK()) {
-            throw new ApiNotOkException("Could not execute infogram request");
-        }
+        $this->checkForResponse(
+            $response,
+            'Can\t connect to the infogram server while trying to fetch available infographics'
+        );
+        $this->checkForValidRequest($response);
 
         return $response;
     }
 
-    public function check_settings()
+    public function checkSettings()
     {
 
     }
 
-    public function getInfographic ($infographicId = '')
+    /**
+     * Retrieve specific infographic
+     *
+     * @param $infographicId
+     *
+     * @return InfogramResponse
+     * @throws \JosefGlatz\Infogram\Exception\ApiNotOkException
+     * @throws \JosefGlatz\Infogram\Exception\ApiNoResponseException
+     */
+    public function getInfographic($infographicId): InfogramResponse
     {
         $request = new InfogramRequest(
             $this->apiSession,
@@ -83,14 +94,45 @@ class ApiService
         );
         $response = $request->execute();
 
-        if (! $response) {
-            throw new ApiNoResponseException("Cannot connect to the infogram server");
-        }
-
-        if (!$response->isOK()) {
-            throw new ApiNotOkException("Could not execute infogram request");
-        }
+        $this->checkForResponse(
+            $response,
+            'Can\t connect to the infogram server while trying to fetch a specific infographic'
+        );
+        $this->checkForValidRequest($response);
 
         return $response->getBody();
+    }
+
+    /**
+     * Check if the infogr.am API server can be accessed.
+     * - Infogram\InfogramResponse is returned, if the API server can be accessed
+     * - Null is returned, if the API server can't be accessed
+     *
+     * @param mixed $response
+     * @param string $message
+     *
+     * @throws ApiNoResponseException
+     */
+    protected function checkForResponse(InfogramResponse $response, string $message = 'Can\'t connect to the infogram server')
+    {
+        if (!$response) {
+            throw new ApiNoResponseException($message);
+        }
+    }
+
+    /**
+     * Check for successful API request
+     * - On error, getBody method returns string which contains the error message
+     *
+     * @param mixed $response
+     * @param string $message
+     *
+     * @throws ApiNotOkException
+     */
+    protected function checkForValidRequest(InfogramResponse $response, string $message = 'API couldn\'t execute request')
+    {
+        if (!$response->isOK()) {
+            throw new ApiNotOkException($message . ': ' . $response->getBody());
+        }
     }
 }
