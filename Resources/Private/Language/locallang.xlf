@@ -36,7 +36,7 @@
 				<source>Select Infographic to display</source>
 			</trans-unit>
 			<trans-unit id="flexform.list.empty">
-				<source>Please select an already generated infographic</source>
+				<source>Please select an infographic</source>
 			</trans-unit>
 		</body>
 	</file>
