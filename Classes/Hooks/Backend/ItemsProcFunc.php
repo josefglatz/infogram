@@ -48,8 +48,37 @@ class ItemsProcFunc
         }
     }
 
+    /**
+     * Get human readable modified date with/-out time based on
+     * the last modified timestamp
+     *
+     * @param string $time Time string compatible to strtotime()
+     *
+     * @return string human readable datetime based on TYPO3 backend configuration
+     */
     protected function lastModified(string $time): string
     {
-        return BackendUtility::datetime(date('U', strtotime($time)));
+        $dateModified = date('U', strtotime($time));
+        if ($this->getModifiedAge($dateModified) > 7) {
+
+            return BackendUtility::date($dateModified);
+        }
+
+        return BackendUtility::datetime($dateModified);
+    }
+
+    /**
+     * Get age in days
+     *
+     * @param $dateModified
+     *
+     * @return int amount of days
+     */
+    protected function getModifiedAge($dateModified): int
+    {
+        $delta_t = -($dateModified - $GLOBALS['EXEC_TIME']);
+
+        /** @noinspection SummerTimeUnsafeTimeManipulationInspection */
+        return ceil($delta_t / (3600 * 24));
     }
 }
