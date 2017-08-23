@@ -81,11 +81,11 @@ class ApiService
      *
      * @param $infographicId
      *
-     * @return InfogramResponse
+     * @return \stdClass
      * @throws \JosefGlatz\Infogram\Exception\ApiNotOkException
      * @throws \JosefGlatz\Infogram\Exception\ApiNoResponseException
      */
-    public function getInfographic($infographicId): InfogramResponse
+    public function getInfographic($infographicId): \stdClass
     {
         $request = new InfogramRequest(
             $this->apiSession,
