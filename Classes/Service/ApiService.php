@@ -22,14 +22,6 @@ class ApiService
     /**
      * @var string
      */
-    private $apiKey;
-    /**
-     * @var string
-     */
-    private $apiSecret;
-    /**
-     * @var string
-     */
     private $apiUsername;
 
     /**
@@ -52,11 +44,9 @@ class ApiService
             require_once ExtensionManagementUtility::extPath('infogram') .
                 'Resources/Private/Contrib/Libraries/autoload.php';
         }
-        $extensionConfiguration = GeneralUtility::makeInstance(ExtensionConfiguration::class);
-        $this->apiKey = $extensionConfiguration->getApiKey();
-        $this->apiSecret = $extensionConfiguration->getApiSecret();
-        $this->apiUsername = $extensionConfiguration->getUsername();
-        $this->apiSession = new RequestSigningSession($this->apiKey, $this->apiSecret);
+        $extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class);
+        $this->apiUsername = $extConf->getUsername();
+        $this->apiSession = new RequestSigningSession($extConf->getApiKey(), $extConf->getApiSecret());
     }
 
     /**
