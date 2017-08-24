@@ -1,10 +1,8 @@
 <?php declare(strict_types=1);
 namespace JosefGlatz\Infogram\Report;
 
-use Doctrine\Common\Util\Debug;
 use JosefGlatz\Infogram\Service\ApiService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Reports\Status;
 
 /**
