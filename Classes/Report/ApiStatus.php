@@ -22,14 +22,18 @@ class ApiStatus extends AbstractInfogramStatus
         $reports = [];
         $severity = Status::OK;
         $value = 'OK';
-        $report = '';
+        $report = '<p class="text-muted">
+                    See <a href="https://status.infogr.am/" target="_blank"
+                    class="text-muted" style="text-decoration: underline;">official API status page</a>
+                    for details about their infrastructure.
+                    </p>';
 
         $api = GeneralUtility::makeInstance(ApiService::class);
         $check = $api->checkSettings();
 
         if ($check === false) {
             $severity = Status::ERROR;
-            $value = 'API response in not ok';
+            $value = 'API response is not ok';
             $variables = [
                 'response' => $check
             ];

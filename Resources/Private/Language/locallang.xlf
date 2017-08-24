@@ -4,19 +4,19 @@
 		<header/>
 		<body>
 			<trans-unit id="extMgm.apiKey">
-				<source>infogra.m API key: You get the API key at infogram.com > Account settings > API</source>
+				<source>infogra.m API key: Please get the API key at infogram.com > Account settings > API</source>
 			</trans-unit>
 			<trans-unit id="extMgm.apiSecret">
-				<source>infogra.m API secret: You get the API secret at infogram.com > Account settings > API</source>
+				<source>infogra.m API secret: Please get the API secret at infogram.com > Account settings > API</source>
 			</trans-unit>
 			<trans-unit id="extMgm.username">
-				<source>infogra.m username: You get the username at infogram.com > Account settings > Profile</source>
+				<source>infogra.m username: Please get the username at infogram.com > Account settings > Profile</source>
 			</trans-unit>
 			<trans-unit id="extMgm.proxy">
-				<source>If you have to use a proxy for curl enter it here: (Not implemented!)</source>
+				<source>(Not implemented!)If you have to use a proxy for curl, please enter it here: (Not implemented!)</source>
 			</trans-unit>
 			<trans-unit id="extMgm.proxyPort">
-				<source>Enter the proxy port: just necessary, if you set  teh proxy url (Not implemented!)</source>
+				<source>(Not implemented!)Enter the proxy port: only necessary, if you set the proxy url (Not implemented!)</source>
 			</trans-unit>
 
 			<trans-unit id="plugin.title">
