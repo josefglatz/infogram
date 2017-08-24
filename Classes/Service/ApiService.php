@@ -72,9 +72,27 @@ class ApiService
         return $response;
     }
 
-    public function checkSettings()
+    /**
+     * Check whether an API request works or not
+     *
+     * @return bool
+     */
+    public function checkSettings(): bool
     {
+        try {
+            $request = new InfogramRequest(
+                $this->apiSession,
+                'GET',
+                'users/' . $this->apiUsername . '/infographics'
+            );
+            $response = $request->execute();
+        } catch (\Exception $e) {
+            // do nothing
+        }
 
+        $check = (bool)$response->isOK();
+
+        return $check;
     }
 
     /**
