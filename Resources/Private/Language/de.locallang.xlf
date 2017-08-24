@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2017-08-24T07:49:26Z">
+		<header>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+		<trans-unit id="flexform.list" approved="yes">
+			<source>Select Infographic to display</source>
+			<target>Infografik zur Darstellung auswählen</target>
+		</trans-unit>
+		<trans-unit id="flexform.title" approved="yes">
+			<source>Infogram</source>
+			<target>Infogram</target>
+		</trans-unit>
+		<trans-unit id="plugin.alternativeTitle" approved="yes">
+			<source>Infogram: embed an infogr.am infographic</source>
+			<target>Infogram: Einbindung einer infogr.am Infografik</target>
+		</trans-unit>
+		<trans-unit id="plugin.description" approved="yes">
+			<source>Display an infogr.am infographic</source>
+			<target>Zeigt eine infogr.am Infografik</target>
+		</trans-unit>
+		<trans-unit id="plugin.title" approved="yes">
+			<source>Infogram</source>
+			<target>Infogram</target>
+		</trans-unit>
+		</body>
+	</file>
+</xliff>
