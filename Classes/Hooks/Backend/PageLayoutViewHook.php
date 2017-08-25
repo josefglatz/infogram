@@ -3,10 +3,12 @@
 namespace JosefGlatz\Infogram\Hooks\Backend;
 
 use JosefGlatz\Infogram\Service\ApiService;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Lang\LanguageService;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
 class PageLayoutViewHook
 {
@@ -16,6 +18,13 @@ class PageLayoutViewHook
      * @var string
      */
     const KEY = 'infogram';
+
+    /**
+     * Table name
+     *
+     * @var string
+     */
+    const TABLE = 'tt_content';
 
     /**
      * Path to the locallang file
@@ -36,33 +45,54 @@ class PageLayoutViewHook
      */
     protected $flexformData = [];
 
-    /** @var  DatabaseConnection */
-    protected $databaseConnection;
-
     /** @var ApiService */
     protected $api;
 
+    /**
+     * @var QueryBuilder
+     */
+    protected $queryBuilder;
+
     public function __construct()
     {
-        /** @var DatabaseConnection databaseConnection */
-        $this->databaseConnection = $GLOBALS['TYPO3_DB'];
+        // instantiate infogram API
         $this->api = GeneralUtility::makeInstance(ApiService::class);
     }
 
+    /**
+     * @TODO check if infographic uid is valid; if not show info that infographic couldn't be fetched (maybe some api problems?)
+     *
+     * @param array $params
+     *
+     * @return string
+     */
     public function getExtensionSummary(array $params = []): string
     {
-        $this->flexformData = GeneralUtility::xml2array($params['row']['pi_flexform']);
+        $header = '<strong class="text-muted">' . htmlspecialchars($this->getLanguageService()->sL(self::LLPATH . 'plugin.title')) . '</strong><br>';
+        $result = '';
 
-        $result = '<strong>' . htmlspecialchars($this->getLanguageService()->sL(self::LLPATH . 'plugin.title')) . '</strong><br>';
+        if ($params['row']['list_type'] == self::KEY . '_show') {
 
-        $this->getListInformation();
+            $this->flexformData = GeneralUtility::xml2array($params['row']['pi_flexform']);
 
-        $result .= $this->renderSettingsAsTable();
-        return $result;
-    }
+            // if flexform data is found
+            $infographicId = $this->getFieldFromFlexform('settings.infographicId');
+            if (!empty($infographicId)) {
+                $infographic = $this->api->getInfographic(trim($infographicId));
+                $view = $this->getFluidTemplateObject('PageLayoutView.html');
+                $view->assignMultiple([
+                    'infographic' => $infographic,
+                    'row' => $params['row'],
+                    'editLink' => $this->getEditLink($params['row'], $params['row']['pid']),
+                    'lastModified' => $this->lastModified($infographic->date_modified),
+                ]);
+                $result .= $view->render();
+            } else {
+                $header .= $this->generateCallout($this->getLanguageService()->sL(self::LLPATH . 'flexforms_general.infographic.not_configured'), $this->getLanguageService()->sL(self::LLPATH . 'flexforms_general.infographic.not_configured.description'));
+            }
+        }
 
-    protected function getListInformation() {
-
+        return $header . $result;
     }
 
     /**
@@ -77,6 +107,7 @@ class PageLayoutViewHook
         if ($hsc) {
             $label = htmlspecialchars($label);
         }
+
         return $label;
     }
 
@@ -85,29 +116,9 @@ class PageLayoutViewHook
      *
      * @return LanguageService
      */
-    public function getLanguageService(): LanguageService
+    protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
-    }
-
-    /**
-     * Render the settings as table for Web>Page module
-     * System settings are displayed in mono font
-     *
-     * @return string
-     */
-    protected function renderSettingsAsTable(): string
-    {
-        if (count($this->tableData) === 0) {
-            return '';
-        }
-
-        $content = '';
-        foreach ($this->tableData as $line) {
-            $content .= ($line[0] ? ('<strong>' . $line[0] . '</strong>' . ' ') : '') . $line[1] . '<br />';
-        }
-
-        return '<pre style="white-space:normal">' . $content . '</pre>';
     }
 
     /**
@@ -115,7 +126,8 @@ class PageLayoutViewHook
      * including checks if flexform configuration is available
      *
      * @param string $key name of the key
-     * @param string $sheet name of the sheet
+     * @param string $sheet name of the sheet (default = 'sDEF')
+     *
      * @return string|NULL if nothing found, value if found
      */
     protected function getFieldFromFlexform($key, $sheet = 'sDEF')
@@ -131,5 +143,98 @@ class PageLayoutViewHook
         }
 
         return null;
+    }
+
+    /**
+     * Render an alert box
+     *
+     * @param string $text
+     * @return string
+     */
+    protected function generateCallout(string $header, string $text): string
+    {
+        return '<div class="alert alert-warning" role="alert">
+            <strong>' . htmlspecialchars($header) . '</strong> ' . htmlspecialchars($text) . '
+        </div>';
+    }
+
+    protected function getEditLink(array $row): string
+    {
+        $url = '';
+        if ($this->getBackendUser()->recordEditAccessInternals('tt_content', $row)) {
+            $urlParameters = [
+                'edit' => [
+                    'tt_content' => [
+                        $row['uid'] => 'edit'
+                    ]
+                ],
+                'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI') . '#element-tt_content-' . $row['uid'],
+            ];
+            $url = BackendUtility::getModuleUrl('record_edit', $urlParameters);
+        }
+        return $url;
+    }
+
+    /**
+     * Returns a new standalone view, shorthand function
+     *
+     * @param string $filename Which templateFile should be used.
+     * @return StandaloneView
+     */
+    protected function getFluidTemplateObject(string $filename): StandaloneView
+    {
+        $view = GeneralUtility::makeInstance(StandaloneView::class);
+        $view->setLayoutRootPaths(['EXT:infogram/Resources/Private/Layouts/Backend']);
+        $view->setPartialRootPaths([
+            'EXT:infogram/Resources/Private/Partials/Backend/PageLayout'
+        ]);
+        $view->setTemplateRootPaths(['EXT:infogram/Resources/Private/Templates/Backend/PageLayout']);
+
+        $view->setTemplate($filename);
+
+        $view->getRequest()->setControllerExtensionName('Infogram');
+        return $view;
+    }
+
+    /**
+     * @return BackendUserAuthentication
+     */
+    protected function getBackendUser()
+    {
+        return $GLOBALS['BE_USER'];
+    }
+
+    /**
+     * Get human readable modified date with/-out time based on
+     * the last modified timestamp
+     *
+     * @param string $time Time string compatible to strtotime()
+     *
+     * @return string human readable datetime based on TYPO3 backend configuration
+     */
+    protected function lastModified(string $time): string
+    {
+        $dateModified = date('U', strtotime($time));
+        if ($this->getModifiedAge($dateModified) > 7) {
+
+            return BackendUtility::date($dateModified);
+        }
+
+        return BackendUtility::datetime($dateModified);
+    }
+
+    /**
+     * Get age in days
+     *
+     * @param $dateModified
+     *
+     * @return int amount of days
+     */
+    protected function getModifiedAge($dateModified): int
+    {
+        $delta_t = -($dateModified - $GLOBALS['EXEC_TIME']);
+
+        /** @noinspection SummerTimeUnsafeTimeManipulationInspection */
+        return ceil($delta_t / (3600 * 24));
     }
 }

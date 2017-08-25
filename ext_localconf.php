@@ -28,8 +28,8 @@ call_user_func(
             );
 
             // Page module hook
-//            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info'][$extKey . '_show'][$_EXTKEY] =
-//                \JosefGlatz\Infogram\Hooks\Backend\PageLayoutViewHook::class . '->getExtensionSummary';
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info'][$extKey . '_show'][$_EXTKEY] =
+                \JosefGlatz\Infogram\Hooks\Backend\PageLayoutViewHook::class . '->getExtensionSummary';
         }
     },
     $_EXTKEY

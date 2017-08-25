@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2017-08-24T07:49:26Z">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-08-25T11:34:18Z">
 		<header>
 			<generator>LFEditor</generator>
 		</header>
 		<body>
+		<trans-unit id="bepreview.edit_infographic_on_infogram">
+			<source>Edit Infographic</source>
+		</trans-unit>
+		<trans-unit id="bepreview.last_modified">
+			<source>Last modified on</source>
+		</trans-unit>
+		<trans-unit id="bepreview.link_analytics">
+			<source>Infogram Analytics</source>
+		</trans-unit>
+		<trans-unit id="bepreview.link_profile_public">
+			<source>Infogram Public Profile</source>
+		</trans-unit>
+		<trans-unit id="bepreview.link_profile_settings">
+			<source>Infogram Profile Settings</source>
+		</trans-unit>
+		<trans-unit id="bepreview.not_published">
+			<source>Your Infographic isn't published yet!!!</source>
+		</trans-unit>
+		<trans-unit id="bepreview.not_published_description">
+			<source>Please publish it first!</source>
+		</trans-unit>
+		<trans-unit id="bepreview.open_infographic_newtab">
+			<source>Open Infographic</source>
+		</trans-unit>
+		<trans-unit id="bepreview.select_other_infographic">
+			<source>Choose another infographic</source>
+		</trans-unit>
 		<trans-unit id="extMgm.apiKey">
 			<source>infogra.m API key: Please get the API key at infogram.com &gt; Account settings &gt; API</source>
 		</trans-unit>
@@ -28,6 +55,12 @@
 		</trans-unit>
 		<trans-unit id="flexform.title">
 			<source>Infogram</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.infographic.not_configured">
+			<source>No infographic selected!</source>
+		</trans-unit>
+		<trans-unit id="flexforms_general.infographic.not_configured.description">
+			<source>That's bad, because no infographic will appear on your website. Please delete this content element, if you want no infographic at this particular position.</source>
 		</trans-unit>
 		<trans-unit id="plugin.alternativeTitle">
 			<source>Infogram: embed an infogr.am infographic</source>

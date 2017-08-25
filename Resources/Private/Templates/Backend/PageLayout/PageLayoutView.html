@@ -1,0 +1,39 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:infogram="http://typo3.org/ns/JosefGlatz/Infogram/ViewHelpers"
+	  data-namespace-typo3-fluid="true">
+<f:if condition="{infographic}">
+	<f:then>
+		<f:if condition="{infographic.published}">
+			<f:else>
+				<div class="alert alert-warning" role="alert">
+					<strong><f:translate key="bepreview.not_published" /></strong>
+					<a href="https://infogram.com/app/#/edit/{infographic.id}" target="_blank" style="text-decoration: underline">
+						<f:translate key="bepreview.not_published_description" />
+					</a>
+				</div>
+			</f:else>
+		</f:if>
+
+			<div class="media">
+				<div class="media-left">
+					<a href="{editLink}" style="display:block;margin-top: 10px;"><img class="media-object" src="{infographic.thumbnail_url}" alt="{infographic.title}"></a>
+				</div>
+				<div class="media-body" style="/*TYPO3 Bootstrap CSS Problem Workaround:*/width:auto!important;">
+					<h4 class="media-heading" style="margin-top: 20px;"><a href="{editLink}">{infographic.title}<br><small><f:translate key="bepreview.last_modified" /> {lastModified}</small></a></h4>
+					<hr style="border-bottom: 1px solid #efefef; margin-bottom: 8px;margin-top: 8px;">
+					<p style="opacity:.7;">
+						- <a href="{editLink}"><f:translate key="bepreview.select_other_infographic" /></a><br>
+						- <a href="{infographic.url}" target="_blank"><f:translate key="bepreview.open_infographic_newtab" /></a><br>
+						- <a href="https://infogram.com/app/#/edit/{infographic.id}" target="_blank"><f:translate key="bepreview.edit_infographic_on_infogram" /></a>
+					</p>
+					<hr style="border-bottom: 1px solid #efefef; margin-bottom: 8px;margin-top: 8px;"><p style="opacity:.6;">
+						- <a href="https://infogram.com/app/#/analytics" target="_blank" style="margin-top: 8px;"><f:translate key="bepreview.link_analytics" /></a><br>
+						- <a href="https://infogram.com/{infographic.user_profile}" target="_blank"><f:translate key="bepreview.link_profile_public" /> <i>{infographic.user_profile}</i></a><br>
+						- <a href="https://infogram.com/app/#settings/profile" target="_blank"><f:translate key="bepreview.link_profile_settings" /></a>
+					</p>
+				</div>
+			</div>
+	</f:then>
+</f:if>
+
+</html>
