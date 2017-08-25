@@ -2,7 +2,8 @@
 
 > This extension implements the most important feature of infogr.am: Let TYPO3 backend editors add an infogram content element via infogr.am API (TYPO3 backend user can select an existing infogram right within the flexforms of the content element plugin)
 
-![Backend Screenshot](./Documentation/Images/ext-infogram-backend-v1.png "Extension Demo v1.x")
+![Backend Screenshot: Edit plugin](./Documentation/Images/ext-infogram-backend-v1.png "Extension Demo v1.x")
+![Backend Screenshot: Page module](./Documentation/Images/ext-infogram-backend-pagemodule-v1.png "Extension Demo v1.x")
 
 ## Requirements
 
